@@ -16,7 +16,7 @@ Clone the repository (replace the placeholder with your instructor's repository 
 
 ```bash
 git clone <REPOSITORY_URL>
-cd product-api
+cd swagger-demo-api
 ```
 
 Or download and extract the repository ZIP, then open a terminal in the `product-api` directory.
@@ -27,13 +27,13 @@ Or download and extract the repository ZIP, then open a terminal in the `product
 mvn spring-boot:run
 ```
 
-By default, the server listens on **http://localhost:8080**. Stop it with **Ctrl+C**.
+By default, the server listens on **http://localhost:8090**. Stop it with **Ctrl+C**.
 
 To compile and package the project instead:
 
 ```bash
 mvn clean package
-java -jar target/product-api-0.0.1-SNAPSHOT.jar
+java -jar target/swagger-demo-api-0.0.1-SNAPSHOT.jar
 ```
 
 ## Explore the API
@@ -42,9 +42,9 @@ Once the app is running:
 
 | Resource | URL |
 | --- | --- |
-| Swagger UI (interactive documentation) | http://localhost:8080/swagger-ui.html |
-| OpenAPI specification (JSON) | http://localhost:8080/v3/api-docs |
-| Products endpoint | http://localhost:8080/api/products |
+| Swagger UI (interactive documentation) | http://localhost:8090/swagger-ui.html |
+| OpenAPI specification (JSON) | http://localhost:8090/v3/api-docs |
+| Products endpoint | http://localhost:8090/api/products |
 
 ### Endpoints
 
@@ -62,19 +62,19 @@ The application starts with two products: **Laptop** and **Mouse**. Data is stor
 List all products:
 
 ```bash
-curl http://localhost:8080/api/products
+curl http://localhost:8090/api/products
 ```
 
 Find a product:
 
 ```bash
-curl http://localhost:8080/api/products/1
+curl http://localhost:8090/api/products/1
 ```
 
 Create a product:
 
 ```bash
-curl -X POST http://localhost:8080/api/products \
+curl -X POST http://localhost:8090/api/products \
   -H 'Content-Type: application/json' \
   -d '{"name":"Keyboard","price":49.99}'
 ```
@@ -124,19 +124,11 @@ product-api/
 
 `@SecurityScheme` and `@SecurityRequirement` **do not enforce authentication**. The `/api/products/secured-example` endpoint is publicly accessible in this demo, even though its OpenAPI description indicates a bearer token. This project does **not** include Spring Security or JWT validation. Do not use it as an example of implemented authentication.
 
-## Suggested student exercises
-
-1. Add a `GET /api/products` description using `@Operation` and inspect the change in Swagger UI.
-2. Add an `@ApiResponse` documenting `404` for the product-by-ID endpoint.
-3. Add a new field to `Product` with an `@Schema` example and examine `/v3/api-docs`.
-4. Add a `DELETE /api/products/{id}` endpoint and document its response codes.
-5. Explain why the endpoint marked with `@SecurityRequirement` is **not** actually protected.
-
 ## Troubleshooting
 
 - **`java` or `mvn` not found:** Install JDK 17+ or Maven and confirm they are on your `PATH`.
-- **Port 8080 already in use:** Stop the other application, or run `mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8081` and use port 8081 in the URLs.
-- **Swagger UI won't load:** Confirm the app started successfully and open `http://localhost:8080/swagger-ui.html`.
+- **Port 8090 already in use:** Stop the other application, or run `mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8081` and use port 8081 in the URLs.
+- **Swagger UI won't load:** Confirm the app started successfully and open `http://localhost:8090/swagger-ui.html`.
 - **Product data disappeared:** The sample uses an in-memory map, not a database; restarting resets it.
 
 ## Tech stack
